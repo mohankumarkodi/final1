@@ -6,7 +6,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
-
+import CreateOrder from "./components/CreateOrder";
 import Profile from "./components/Profile";
 import AddProducts from "./components/AddProducts";
 import Cart from "./components/Cart";
@@ -64,6 +64,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/createorder"
+            element={
+              <ProtectedRoute>
+                <CreateOrder />
               </ProtectedRoute>
             }
           />
