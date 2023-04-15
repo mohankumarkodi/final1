@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import { storage } from "../../firebase";
+import {useFormik} from "formik";
+import * as Yup from "yup";
+import { v4 } from "uuid";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Select from "react-select";
 import "./index.css";
 const categoryList = [
@@ -25,39 +30,133 @@ const categoryList = [
 ];
 function AddProducts() {
   const [selectedCategory, setCategory] = useState([]);
-  return (
-    <div className="add-product-bg-container">
-      <div className="add-product-card">
-        <div>
-          <label className="add-product-label">Category</label>
-          <br />
-          <Select
-            className="product-category-select"
-            options={categoryList}
-            isSearchable={false}
-            placeholder={<div>Select required category</div>}
-            onChange={(option) => setCategory(option.value)}
-          />
-        </div>
-        <div>
-          <label className="add-product-label" htmlFor="title">Title</label>
-          <br />
-          <input className="add-product-input" id="title" type="text" />
-        </div>
-        <div>
-          <label className="add-product-label" htmlFor="price">Price</label>
-          <br />
-          <input className="add-product-input" id="price" type="text" />
-        </div>
-        <div>
-          <label className="add-product-label" htmlFor="brand">Brand</label>
-          <br />
-          <input className="add-product-input" id="brand" type="text" />
-        </div>
+  const [image, setImage] = useState(null);
+  const [url, setUrl] = useState(null);
+  const [errorMsg, setErrorMsg] = useState("");
+console.log(selectedCategory.type)
+  
 
-        <button className="add-product-add-button">Add item</button>
+  const formikAddProduct = useFormik({
+    initialValues: {
+      title: "",
+      imgUrl: "",
+      price:"",
+      brand :"",
+    },
+    validationSchema: Yup.object({
+      title:Yup.string()
+      .required("Required*"),
+      brand: Yup.string()
+      .required("Required*"),
+      price: Yup.string()
+      .matches('/^(\$)?(\d{1,3}(,\d{3})*|(\d+))(\.\d{2})?$/',"price needed numbers only")
+      .required("Required*"),
+   
+
+
+    })
+  });
+
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+  const handlesubmit = () => {
+    const imageRef = ref(storage, "image" + v4());
+    uploadBytes(imageRef, image)
+      .then(() => {
+        getDownloadURL(imageRef)
+          .then((url) => {
+            console.log(url);
+            setUrl(url);
+          })
+          .catch((error) => {
+            console.log(error.message, "eroor getting the url");
+          });
+        setImage(null);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+  console.log(url);
+  return (
+    <>
+      <div className="add-products-img-align">
+        <form className="add-product-bg-container">
+          <div className="add-product-card">
+            <div>
+              <label className="add-product-label">Category</label>
+              <br />
+              <Select
+                className="add-product-input"
+                options={categoryList}
+                isSearchable={false}
+                placeholder={<div>Select required category</div>}
+                onChange={(option) => setCategory(option.value)}
+              />
+              {/* {selectedCategory === undefined ? "Please select catagary":""} */}
+            </div>
+            <div>
+              <label className="add-product-label" htmlFor="title">
+                Title
+              </label>
+              <br />
+              <input 
+              {...formikAddProduct.getFieldProps("title")}
+              className="add-product-input" id="title" type="text" />
+              {formikAddProduct.touched.title && formikAddProduct.errors.title ? (
+                <div className="l-error">{formikAddProduct.errors.title}</div>
+              ) : null}
+            </div>
+            <div>
+              <label className="add-product-label" htmlFor="price">
+                Price
+              </label>
+              <br />
+              <input
+              {...formikAddProduct.getFieldProps("price")}
+               className="add-product-input" id="price" type="text" />
+            
+            {formikAddProduct.touched.price && formikAddProduct.errors.price ? (
+                <div className="l-error">{formikAddProduct.errors.price}</div>
+              ) : null}
+            </div>
+            <div>
+              <label className="add-product-label" htmlFor="brand">
+                Brand
+              </label>
+              <br />
+              <input
+              {...formikAddProduct.getFieldProps("brand")}
+              className="add-product-input" id="brand" type="text" />
+            {formikAddProduct.touched.brand && formikAddProduct.errors.brand ? (
+                <div className="l-error">{formikAddProduct.errors.brand}</div>
+              ) : null}
+            </div>
+            <div className="add-product-uploadImage-container">
+              <input
+                className="add-product-choose-file"
+                type="file"
+                onChange={handleImageChange}
+              />
+              <button
+                className="add-product-submit-button"
+                onClick={handlesubmit}
+              >
+                submit
+              </button>
+            </div>
+
+            <button className="add-product-add-button">Add item</button>
+          </div>
+        </form>
+        <div className="add-product-img-container">
+          <img className="add-product-img-size" src={url} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 export default AddProducts;
