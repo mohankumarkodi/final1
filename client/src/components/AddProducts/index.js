@@ -83,19 +83,7 @@ function AddProducts() {
       <Header />
       <div className="add-product-bg-container-total">
         <div className="add-products-img-align">
-          <div className="add-product-uploadImage-container">
-            <input
-              className="add-product-choose-file"
-              type="file"
-              onChange={handleImageChange}
-            />
-            <button
-              className="add-product-submit-button"
-              onClick={handlesubmit}
-            >
-              submit
-            </button>
-          </div>
+          
           <form onSubmit={formikAddProduct.handleSubmit} className="add-product-bg-container">
             <div className="add-product-card">
               <div>
@@ -160,7 +148,7 @@ function AddProducts() {
                 ) : null}
               </div>
 
-              <button type="submit" className="add-product-add-button">Add item</button>
+              <button type="submit" className="add-product-add-button">Add Item</button>
             </div>
           </form>
         </div>
@@ -170,6 +158,19 @@ function AddProducts() {
             src={url}
             alt="uploaded image"
           />
+          <div className="add-product-uploadImage-container">
+            <input
+              className="add-product-choose-file"
+              type="file"
+              onChange={handleImageChange}
+            />
+            <button
+              className="add-product-submit-button"
+              onClick={handlesubmit}
+            >
+              Add Image
+            </button>
+          </div>
         </div>
       </div>
     </>

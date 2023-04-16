@@ -10,7 +10,6 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
     height: 100vh;
 
 }
@@ -52,8 +51,10 @@
     width: 250px;
 }
 .add-product-img-size{
-    width: 100%;
+    height: 350px;
+    width: 350px;
     border: none;
+    margin-top: 180px;
 }
 .add-products-img-align{
     width: 100%;
@@ -69,8 +70,8 @@
 .add-product-img-container{
     border: none;
     outline: none;
-    width:300px;
-    height: 300px;
+    width:400px;
+    height: 250px;
 }
 .number-input::-webkit-outer-spin-button,
 .number-input::-webkit-inner-spin-button {
