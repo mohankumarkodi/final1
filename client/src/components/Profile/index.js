@@ -107,8 +107,9 @@ function Profile() {
   return (
     <>
       <ToastContainer />
-      <Header />
+      
       <div className="p-margin">
+      <Header />
         <div className="profile-details">
           <div className="profile-heading-container">
             <h1 className="profile-heading">Account</h1>
@@ -144,7 +145,8 @@ function Profile() {
             </div>
           </div>
         </div>
-        <Modal isOpen={isModalOpen}>
+        <div>
+        <Modal className="p-model-size" isOpen={isModalOpen}>
           <form className="p-form" onSubmit={formikProfile.handleSubmit}>
             <h1 className="p-profile_name">Profile</h1>
             <div className="p-inputs-align">
@@ -202,7 +204,9 @@ function Profile() {
             </div>
           </form>
         </Modal>
-        <Modal isOpen={isPasswordModalOpen} className="modal-style">
+        </div>
+        
+        <Modal  isOpen={isPasswordModalOpen} className="modal-style p-model-size">
           <div className="c-margin">
             <div className="c-aligning">
               {/* <h1 className="c-profile_name">Change Password</h1> */}
@@ -319,7 +323,7 @@ function Profile() {
           </div>
         </Modal>
       </div>
-      xx
+      
     </>
   );
 }

@@ -2,10 +2,10 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-image: url("https://res.cloudinary.com/dck3ikgrn/image/upload/v1681388922/wp2939917_l8esey.jpg");
+    background-color: rgb(243, 137, 62);
     background-size: cover;
     height: 100vh;
-    padding: 20px 40px;
+
 }
 
 .p-names{
@@ -57,10 +57,18 @@
      flex-direction: column;
      justify-content: center;
      padding: 30px;
+     width: 400px;
      
  }
  .p-model-size{
-    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: #ffffff;
+
  }
 
 .p-btn-align2{
@@ -182,7 +190,8 @@
     width: 100%;
     background-color:#ffffff;
     border-radius: 8px;
-    opacity: 0.5;
+    outline: none;
+
     
 }
 .c-aligning{
@@ -271,14 +280,14 @@
     border-radius: 5px;
     border: solid 1px #ffffff;
     border-radius: 5px;
-    background-color: darkgray;
+    background-color: #ffffff;
 }
 .p-eye-button{
     border:none;
     outline: none;
     background-color: transparent;
     font-size: 18px;
-    color: #5d1818;
+    color: #0b0a0a;
     padding: 0;
     padding-right: 10px;
 }
